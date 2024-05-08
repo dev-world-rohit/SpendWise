@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuthentication from "../hooks/useAuthentication";
 import registration from "../assets/registration.svg";
 
