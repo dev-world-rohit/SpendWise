@@ -57,8 +57,9 @@ function ReminderForm({data, handleData}) {
     };
 
     return (
-        <div className="expense-form dashboard-second-container dashboard-border-radius">
-            <form className="expense-add-form" onSubmit={handleSubmit}>
+        <div className="expense-form dashboard-border-radius reminder-form-container">
+            <form className="expense-add-form reminder-form" onSubmit={handleSubmit}>
+                <h2 className="reminder-form-heading">Remaind Yourself</h2>
                 <div className="expense-form-field">
                     <input
                         type="text"

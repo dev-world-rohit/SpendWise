@@ -22,7 +22,7 @@ function setStatus(status) {
 }
 
 function TagBasedExpense() {
-    const { token } = useAuthentication();
+    const { token, url } = useAuthentication();
     const [housing, setHousing] = useState(0);
     const [housingComparison, setHousingComparison] = useState(null);
 
@@ -57,7 +57,7 @@ function TagBasedExpense() {
         async function handleName() {
             try {
                 const response = await axios({
-                    url: "http://127.0.0.1:5000/tag_based_expenses",
+                    url: url + "/tag_based_expenses",
                     method: "GET",
                     headers: {
                         authorization: "Bearer " + token,
