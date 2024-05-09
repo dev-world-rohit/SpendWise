@@ -7,7 +7,7 @@ function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const { token, setToken, saveToken } = useAuthentication();
+    const { token, setToken, saveToken, url } = useAuthentication();
 
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function LoginForm() {
             alert("Please fill all fields");
         } else {
             axios({
-                url: "http://127.0.0.1:5000/login",
+                url: url + "/login",
                 method: "POST",
                 headers: {
                     authorization: "bearer",

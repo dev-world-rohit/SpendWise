@@ -17,15 +17,68 @@ const tags = [
     { value: "Miscellaneous", label: "Miscellaneous" },
 ];
 
-function ExpenseAddForm({ handleForm }) {
-    
+function ExpenseAddForm({
+    handleForm,
+    monthly,
+    setMonthly,
+    yearly,
+    setYearly,
+    housing,
+    setHousing,
+    transportation,
+    setTransportation,
+    food,
+    setFood,
+    healthCare,
+    setHealthCare,
+    personalCare,
+    setPersonalCare,
+    personalCareComparison,
+    debt,
+    setDebt,
+    entertainment,
+    setEntertainment,
+    lend,
+    setLend,
+    miscellaneous,
+    setMiscellaneous,
+}) {
+    function tagBasedDataUpdate() {
+        if (selectedOption.label === "Housing") {
+            setHousing(parseInt(housing) + parseInt(price));
+        }
+        if (selectedOption.label === "Transportation") {
+            setTransportation(parseInt(transportation) + parseInt(price));
+        }
+        if (selectedOption.label === "Food") {
+            setFood(parseInt(food) + parseInt(price));
+        }
+        if (selectedOption.label === "Health Care") {
+            setHealthCare(parseInt(healthCare) + parseInt(price));
+        }
+        if (selectedOption.label === "Personal Care") {
+            setPersonalCare(parseInt(transportation) + parseInt(price));
+        }
+        if (selectedOption.label === "Debt") {
+            setDebt(parseInt(debt) + parseInt(price));
+        }
+        if (selectedOption.label === "Entertainment") {
+            setEntertainment(parseInt(entertainment) + parseInt(price));
+        }
+        if (selectedOption.label === "Lend") {
+            setLend(parseInt(lend) + parseInt(price));
+        }
+        if (selectedOption.label === "Miscellaneous") {
+            setMiscellaneous(parseInt(miscellaneous) + parseInt(price));
+        }
+    }
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const { token } = useAuthentication();
+    const { token, url } = useAuthentication();
 
     const handleChange = (selectedOption) => {
         setSelectedOption(selectedOption);
@@ -39,7 +92,7 @@ function ExpenseAddForm({ handleForm }) {
         e.preventDefault();
 
         axios({
-            url: "http://127.0.0.1:5000/add_expense",
+            url: url + "/add_expense",
             method: "POST",
             headers: {
                 authorization: "Bearer " + token,
@@ -53,8 +106,9 @@ function ExpenseAddForm({ handleForm }) {
             },
         })
             .then((res) => {
-                console.log("Expense added successfully:", res.data);
-                handleForm(res.data);
+                setMonthly(parseInt(monthly) + parseInt(price));
+                setYearly(parseInt(yearly) + parseInt(price));
+                tagBasedDataUpdate();
             })
             .catch((err) => {
                 console.error("Error adding expense:", err);

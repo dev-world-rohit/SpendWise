@@ -18,17 +18,100 @@ function formatDate(date) {
     return formattedDate.toLocaleDateString("en-GB", options);
 }
 
+function setStatus(status) {
+    if (status === "increase" || status === "no change") {
+        return "GrDescend";
+    } else {
+        return "GrAscend";
+    }
+}
+
 function DashBoard() {
-    const { token } = useAuthentication();
+    const { token, url } = useAuthentication();
     const[change, setChange] = useState();
     const [name, setName] = useState("");
     const currentDate = formatDate(new Date());
+    const [monthly, setMonthly] = useState(0);
+    const [yearly, setYearly] = useState(0);
+
+    const [housing, setHousing] = useState(0);
+    const [housingComparison, setHousingComparison] = useState(null);
+
+    const [transportation, setTransportation] = useState(0);
+    const [transportationComparison, setTransportationComparison] =
+        useState(null);
+
+    const [food, setFood] = useState(0);
+    const [foodComparison, setFoodComparison] = useState(null);
+
+    const [healthCare, setHealthCare] = useState(0);
+    const [healthCareComparison, setHealthCareComparison] = useState(null);
+
+    const [personalCare, setPersonalCare] = useState(0);
+    const [personalCareComparison, setPersonalCareComparison] = useState(null);
+
+    const [debt, setDebt] = useState(0);
+    const [debtComparison, setDebtComparison] = useState(null);
+
+    const [entertainment, setEntertainment] = useState(0);
+    const [entertainmentComparison, setEntertainmentComparison] =
+        useState(null);
+
+    const [lend, setLend] = useState(0);
+    const [lendComparison, setLendComparison] = useState(null);
+
+    const [miscellaneous, setMiscellaneous] = useState(0);
+    const [miscellaneousComparison, setMiscellaneousComparison] =
+        useState(null);
 
     useEffect(() => {
         async function handleName() {
             try {
                 const response = await axios({
-                    url: "http://127.0.0.1:5000/name",
+                    url: url + "/tag_based_expenses",
+                    method: "GET",
+                    headers: {
+                        authorization: "Bearer " + token,
+                    },
+                });
+                const monthly_expenses = response.data.current_month_expenses;
+                const comparison = response.data.comparison;
+                setHousing(monthly_expenses.Housing);
+                setTransportation(monthly_expenses.Transportation);
+                setFood(monthly_expenses.Food);
+                setHealthCare(monthly_expenses["Health Care"]);
+                setPersonalCare(monthly_expenses["Personal Care"]);
+                setDebt(monthly_expenses.Debt);
+                setLend(monthly_expenses.Lend);
+                setEntertainment(monthly_expenses.Entertainment);
+                setMiscellaneous(monthly_expenses.Miscellaneous);
+
+                setHousingComparison(setStatus(comparison.Housing));
+                setTransportationComparison(
+                    setStatus(comparison.Transportation)
+                );
+                setFoodComparison(setStatus(comparison.Food));
+                setHealthCareComparison(setStatus(comparison["Health Care"]));
+                setPersonalCareComparison(
+                    setStatus(comparison["Personal Care"])
+                );
+                setDebtComparison(setStatus(comparison.Debt));
+                setLendComparison(setStatus(comparison.Lend));
+                setEntertainmentComparison(setStatus(comparison.Entertainment));
+                setMiscellaneousComparison(setStatus(comparison.Miscellaneous));
+            } catch (err) {
+                console.error("Error fetching name:", err);
+            }
+        }
+
+        handleName();
+    }, [token]);
+
+    useEffect(() => {
+        async function handleName() {
+            try {
+                const response = await axios({
+                    url: url + "/name",
                     method: "GET",
                     headers: {
                         authorization: "Bearer " + token,
@@ -43,9 +126,59 @@ function DashBoard() {
         handleName();
     }, [token]);
 
+    useEffect(() => {
+        async function handleName() {
+            try {
+                const response = await axios({
+                    url: url + "/total_expense",
+                    method: "GET",
+                    headers: {
+                        authorization: "Bearer " + token,
+                    },
+                });
+                setMonthly(response.data.monthly);
+                setYearly(response.data.yearly);
+            } catch (err) {
+                console.error("Error fetching name:", err);
+            }
+        }
+
+        handleName();
+    }, [token]);
+
     function handleChange(value){
         setChange(value);
     }
+
+    const tagBasedData = {
+        housing,
+        setHousing,
+        housingComparison,
+        transportation,
+        setTransportation,
+        transportationComparison,
+        food,
+        setFood,
+        foodComparison,
+        healthCare,
+        setHealthCare,
+        healthCareComparison,
+        personalCare,
+        setPersonalCare,
+        personalCareComparison,
+        debtComparison,
+        debt,
+        setDebt,
+        entertainmentComparison,
+        entertainment,
+        setEntertainment,
+        lendComparison,
+        lend,
+        setLend,
+        miscellaneousComparison,
+        miscellaneous,
+        setMiscellaneous
+    };
 
     return (
         <div className="main-dashboard-container">
@@ -53,12 +186,12 @@ function DashBoard() {
             <div className="main-dashboard-date">{currentDate}</div>
             <div className="main-dashboard-display-div">
                 <div className="sub-dashboard">
-                    <TotalOverview />
-                    <TagBasedExpense />
+                    <TotalOverview monthly={monthly} yearly={yearly}/>
+                    <TagBasedExpense {...tagBasedData} />
                 </div>
                 <div className="sub-dashboard">
                     <DashBoardReminder />
-                    <ExpenseAddForm handleForm={handleChange} />
+                    <ExpenseAddForm handleForm={handleChange} monthly={monthly} setMonthly={setMonthly} yearly={yearly} setYearly={setYearly} {...tagBasedData} />
                 </div>
             </div>
         </div>

@@ -14,7 +14,7 @@ function SignUpForm() {
     const [confirmPassword, setConfirmPassword] = useState("");
     // const [error, setError] = useState(null);
 
-    const { token, setToken, saveToken } = useAuthentication();
+    const { token, setToken, saveToken, url } = useAuthentication();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function SignUpForm() {
             alert("Please fill all fields");
         } else {
             axios({
-                url: "http://127.0.0.1:5000/signup",
+                url: url + "/signup",
                 method: "POST",
                 headers: {
                     authorization: "bearer",
@@ -55,7 +55,7 @@ function SignUpForm() {
         e.preventDefault();
 
         axios({
-            url: "http://127.0.0.1:5000/otp",
+            url: url + "/otp",
             method: "POST",
             headers: {
                 authorization: "asdf",
