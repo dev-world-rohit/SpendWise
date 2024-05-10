@@ -28,7 +28,6 @@ function setStatus(status) {
 
 function DashBoard() {
     const { token, url } = useAuthentication();
-    const[change, setChange] = useState();
     const [name, setName] = useState("");
     const currentDate = formatDate(new Date());
     const [monthly, setMonthly] = useState(0);
@@ -105,7 +104,7 @@ function DashBoard() {
         }
 
         handleName();
-    }, [token]);
+    }, [token, url]);
 
     useEffect(() => {
         async function handleName() {
@@ -124,7 +123,7 @@ function DashBoard() {
         }
 
         handleName();
-    }, [token]);
+    }, [token, url]);
 
     useEffect(() => {
         async function handleName() {
@@ -144,11 +143,8 @@ function DashBoard() {
         }
 
         handleName();
-    }, [token]);
+    }, [token, url]);
 
-    function handleChange(value){
-        setChange(value);
-    }
 
     const tagBasedData = {
         housing,
@@ -191,7 +187,7 @@ function DashBoard() {
                 </div>
                 <div className="sub-dashboard">
                     <DashBoardReminder />
-                    <ExpenseAddForm handleForm={handleChange} monthly={monthly} setMonthly={setMonthly} yearly={yearly} setYearly={setYearly} {...tagBasedData} />
+                    <ExpenseAddForm monthly={monthly} setMonthly={setMonthly} yearly={yearly} setYearly={setYearly} {...tagBasedData} />
                 </div>
             </div>
         </div>

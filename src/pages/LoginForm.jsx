@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuthentication from "../hooks/useAuthentication";
 
 function LoginForm() {
@@ -15,7 +15,7 @@ function LoginForm() {
         if (token) {
             navigate('/');
         }
-    }, [token]);
+    }, [token, navigate]);
 
     const handleRegistration = (e) => {
         e.preventDefault();
@@ -33,7 +33,6 @@ function LoginForm() {
             })
                 .then((res) => {
                     setToken(res.data.access_token);
-                    localStorage.setItem("email", email);
                     saveToken(res.data.access_token);
                 })
                 .catch((err) => {

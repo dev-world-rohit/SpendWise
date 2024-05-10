@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import useAuthentication from "../hooks/useAuthentication";
 import SettingIcon from "../assets/setting-icon.svg";
@@ -6,11 +6,10 @@ import LogOutIcon from "../assets/logout-icon.svg";
 
 function NavBar() {
     const navigate = useNavigate();
-    const { token, setToken, saveToken } = useAuthentication();
+    const {  setToken } = useAuthentication();
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("email");
+        localStorage.clear();
         setToken(false)
         navigate('/register')
     };

@@ -19,6 +19,7 @@ function DashBoardReminder() {
             })
                 .then((res) => {
                     setReminder(res.data);
+                    console.log(res.data);
                 })
                 .catch((err) => {
                     console.error("Error adding expense:", err);
@@ -26,7 +27,7 @@ function DashBoardReminder() {
         };
 
         handleSubmit();
-    }, []);
+    }, [token, url]);
 
     return (
         <div>

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import TagCard from "./TagCard";
 import { IoHomeSharp } from "react-icons/io5";
 import { MdOutlineEmojiTransportation } from "react-icons/md";

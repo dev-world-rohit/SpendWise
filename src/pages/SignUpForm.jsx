@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuthentication from "../hooks/useAuthentication";
-import registration from "../assets/registration.svg";
 
 function SignUpForm() {
     const [activate, setActivate] = useState(true);
@@ -12,7 +11,6 @@ function SignUpForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    // const [error, setError] = useState(null);
 
     const { token, setToken, saveToken, url } = useAuthentication();
     const navigate = useNavigate();
@@ -21,7 +19,7 @@ function SignUpForm() {
         if (token) {
             navigate("/");
         }
-    }, [token]);
+    }, [token, navigate]);
 
     const handleRegistration = (e) => {
         e.preventDefault();
@@ -42,7 +40,6 @@ function SignUpForm() {
             })
                 .then((res) => {
                     setToken(res.data.access_token);
-                    localStorage.setItem("email", email);
                     saveToken(res.data.access_token);
                 })
                 .catch((err) => {
