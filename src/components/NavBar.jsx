@@ -37,7 +37,10 @@ function NavBar() {
                 </button>
             </div>
             <div className="sub-nav-container">
-                <button className="nav-component">
+                <button
+                    className="nav-component"
+                    onClick={() => navigate("/setting")}
+                >
                     <img className="nav-bar-icons" src={SettingIcon} alt="" />{" "}
                     Setting
                 </button>

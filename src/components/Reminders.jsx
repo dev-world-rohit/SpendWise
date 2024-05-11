@@ -30,7 +30,7 @@ function Reminders() {
         };
 
         handleSubmit();
-    }, [token]);
+    }, [token, url]);
 
     return (
         <div className="main-dashboard-container">

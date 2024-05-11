@@ -67,7 +67,7 @@ body {
 .main-nav-component,
 .nav-component {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     padding: 0.5rem 2rem;
     transition: 0.25s ease;
 }
@@ -557,4 +557,8 @@ textarea {
 .reminder-card-icon:hover {
     transform: scale(1.1);
     color: red;
+}
+
+.setting-page {
+    margin: 5rem 10vw;
 }

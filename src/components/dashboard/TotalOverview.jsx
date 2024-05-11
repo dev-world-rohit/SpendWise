@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import useAuthentication from "../../hooks/useAuthentication";
-import axios from "axios";
+import React from "react";
 
 function TotalOverview({monthly, yearly}) {
-    const { token, url } = useAuthentication();
 
     return (
         <div className="dashboard-overview dashboard-first-container dashboard-border-radius">

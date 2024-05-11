@@ -48,7 +48,7 @@ function ReminderForm({data, handleData}) {
             },
         })
             .then((res) => {
-                console.log("Expense added successfully:", res.data);
+                console.log("Expense added successfully:");
                 handleData(res.data)
             })
             .catch((err) => {

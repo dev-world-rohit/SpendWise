@@ -6,6 +6,7 @@ import useAuthentication from "../hooks/useAuthentication";
 function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [forgetPassword, setForgetPassword] = useState(false);
 
     const { token, setToken, saveToken, url } = useAuthentication();
 
@@ -13,7 +14,7 @@ function LoginForm() {
 
     useEffect(() => {
         if (token) {
-            navigate('/');
+            navigate("/");
         }
     }, [token, navigate]);
 
@@ -32,8 +33,13 @@ function LoginForm() {
                 data: { email, password },
             })
                 .then((res) => {
-                    setToken(res.data.access_token);
-                    saveToken(res.data.access_token);
+                    if (res.data === "Incorrect Password.") {
+                        setForgetPassword(true);
+                    } else if (res.data === "Email does not exist.") {
+                    } else {
+                        setToken(res.data.access_token);
+                        saveToken(res.data.access_token);
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
@@ -43,7 +49,7 @@ function LoginForm() {
 
     const navigateToRegistration = () => {
         setToken(false);
-        navigate('/register');
+        navigate("/register");
     };
 
     return (
@@ -74,6 +80,7 @@ function LoginForm() {
                         Login
                     </button>
                 </form>
+
                 <div className="login-page">
                     Create an Account?{" "}
                     <button
@@ -84,6 +91,17 @@ function LoginForm() {
                         Register
                     </button>
                 </div>
+                {forgetPassword && (
+                    <div>
+                        <button
+                            onClick={() => navigate("/forgetpassword")}
+                            anchor-button
+                            className="anchor-button"
+                        >
+                            Forget Password
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );

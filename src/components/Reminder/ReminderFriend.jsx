@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-import useAuthentication from "../../hooks/useAuthentication";
+// import axios from "axios";
+// import useAuthentication from "../../hooks/useAuthentication";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -12,7 +12,7 @@ function ReminderFriendForm({ data, handleData }) {
     const [email, setEmail] = useState("");
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const { token, url } = useAuthentication();
+    // const { token, url } = useAuthentication();
 
 
     const handleDateChange = (date) => {
