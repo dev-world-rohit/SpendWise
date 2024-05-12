@@ -4,6 +4,8 @@ import axios from "axios";
 import useAuthentication from "../../hooks/useAuthentication";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const tags = [
     { value: "Housing", label: "Housing" },
@@ -109,14 +111,16 @@ function ExpenseAddForm({
                 setMonthly(parseInt(monthly) + parseInt(price));
                 setYearly(parseInt(yearly) + parseInt(price));
                 tagBasedDataUpdate();
+                toast("Expense Added Successfully");
             })
             .catch((err) => {
-                console.error("Error adding expense:", err);
+                toast("Error Adding Expense");
             });
     };
 
     return (
         <div className="expense-form dashboard-second-container dashboard-border-radius">
+            <ToastContainer />
             <form className="expense-add-form" onSubmit={handleSubmit}>
                 <div className="expense-form-field">
                     <input

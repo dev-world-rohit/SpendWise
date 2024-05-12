@@ -35,6 +35,12 @@ function NavBar() {
                 >
                     Reminder
                 </button>
+                <button
+                    className="nav-component main-nav-component"
+                    onClick={() => navigate("/premium")}
+                >
+                    Premium
+                </button>
             </div>
             <div className="sub-nav-container">
                 <button

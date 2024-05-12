@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuthentication from "../hooks/useAuthentication";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
+    const [diasble, setDisable] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [forgetPassword, setForgetPassword] = useState(false);
@@ -20,7 +23,7 @@ function LoginForm() {
 
     const handleRegistration = (e) => {
         e.preventDefault();
-
+        setDisable(true);
         if (!email || !password) {
             alert("Please fill all fields");
         } else {
@@ -33,16 +36,19 @@ function LoginForm() {
                 data: { email, password },
             })
                 .then((res) => {
-                    if (res.data === "Incorrect Password.") {
+                    if (res.data.error) {
+                        toast(res.data.error);
                         setForgetPassword(true);
-                    } else if (res.data === "Email does not exist.") {
+                        setDisable(false);
                     } else {
+                        toast("Login Successful");
                         setToken(res.data.access_token);
                         saveToken(res.data.access_token);
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
+                    toast("Error Occured");
+                    setDisable(false);
                 });
         }
     };
@@ -54,6 +60,7 @@ function LoginForm() {
 
     return (
         <div className="registration-container">
+            <ToastContainer />
             <div className="registration-form-div half-size-div">
                 <form
                     onSubmit={handleRegistration}
@@ -76,7 +83,14 @@ function LoginForm() {
                         required
                     />
 
-                    <button type="submit" className="btn primary-btn">
+                    <button
+                        type="submit"
+                        className={
+                            "btn " +
+                            (diasble ? "disabled-button" : "primary-btn")
+                        }
+                        disabled={diasble}
+                    >
                         Login
                     </button>
                 </form>

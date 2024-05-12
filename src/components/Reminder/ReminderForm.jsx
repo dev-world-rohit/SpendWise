@@ -4,6 +4,8 @@ import axios from "axios";
 import useAuthentication from "../../hooks/useAuthentication";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const repeatTime = [
     { value: "One Time", label: "One Time" },
@@ -13,7 +15,7 @@ const repeatTime = [
     { value: "Every Year", label: "Every Year" },
 ];
 
-function ReminderForm({data, handleData}) {
+function ReminderForm({ data, handleData }) {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
@@ -48,17 +50,21 @@ function ReminderForm({data, handleData}) {
             },
         })
             .then((res) => {
-                console.log("Expense added successfully:");
-                handleData(res.data)
+                toast("Reminder Added Successfully");
+                handleData(res.data);
             })
             .catch((err) => {
-                console.error("Error adding expense:", err);
+                toast("Error Adding Reminder");
             });
     };
 
     return (
         <div className="expense-form dashboard-border-radius reminder-form-container">
-            <form className="expense-add-form reminder-form" onSubmit={handleSubmit}>
+            <ToastContainer />
+            <form
+                className="expense-add-form reminder-form"
+                onSubmit={handleSubmit}
+            >
                 <h2 className="reminder-form-heading">Remaind Yourself</h2>
                 <div className="expense-form-field">
                     <input

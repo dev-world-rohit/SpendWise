@@ -8,6 +8,7 @@ import AnalysisPage from "./pages/AnalysisPage";
 import ReminderPage from "./pages/ReminderPage";
 import SettingPage from "./pages/SettingPage";
 import ForgetPassword from "./pages/ForgetPassword";
+import PremiumPage from "./pages/PremiumPage";
 
 function App() {
     const { token, getToken } = useAuthentication();
@@ -22,7 +23,10 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<LoginForm />} />
                     <Route path="/register" element={<SignUpForm />} />
-                    <Route path="/forgetpassword" element={<ForgetPassword />} />
+                    <Route
+                        path="/forgetpassword"
+                        element={<ForgetPassword />}
+                    />
                     <Route
                         path="/"
                         element={
@@ -37,6 +41,7 @@ function App() {
                     <Route path="/analysis" element={<AnalysisPage />} />
                     <Route path="/reminder" element={<ReminderPage />} />
                     <Route path="/setting" element={<SettingPage />} />
+                    <Route path="/premium" element={<PremiumPage />} />
                 </Routes>
             </BrowserRouter>
         </div>

@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuthentication from "../hooks/useAuthentication";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SignUpForm() {
+    const [diasble, setDisable] = useState(false);
     const [activate, setActivate] = useState(true);
     const [otp, setOtp] = useState("");
     const [name, setName] = useState("");
@@ -23,6 +26,7 @@ function SignUpForm() {
 
     const handleRegistration = (e) => {
         e.preventDefault();
+        setDisable(true);
         if (password !== confirmPassword) {
             alert("Passwords do not match");
         }
@@ -39,18 +43,25 @@ function SignUpForm() {
                 data: { name, phone, email, password, otp },
             })
                 .then((res) => {
-                    setToken(res.data.access_token);
-                    saveToken(res.data.access_token);
+                    if (res.data.error) {
+                        toast(res.data.error);
+                        setDisable(false);
+                    } else {
+                        setToken(res.data.access_token);
+                        saveToken(res.data.access_token);
+                        toast("Registration Successful");
+                    }
                 })
                 .catch((err) => {
-                    console.log(err);
+                    toast("Error Occured");
+                    setDisable(false);
                 });
         }
     };
 
     const handleOtp = (e) => {
         e.preventDefault();
-
+        setDisable(true);
         axios({
             url: url + "/otp",
             method: "POST",
@@ -61,13 +72,17 @@ function SignUpForm() {
         })
             .then((res) => {
                 if (res.data.error) {
-                    alert(res.data.error);
+                    toast(res.data.error);
+                    setDisable(false);
                 } else {
+                    toast("Otp Sent Successfully");
                     setActivate(false);
+                    setDisable(false);
                 }
             })
             .catch((err) => {
-                console.log(err);
+                toast("Error Occured while Sending the OTP.");
+                setDisable(false);
             });
     };
 
@@ -77,6 +92,7 @@ function SignUpForm() {
 
     return (
         <div className="registration-container">
+            <ToastContainer />
             {activate && (
                 <div className="registration-form-div half-size-div">
                     <form onSubmit={handleOtp} className="registration-form">
@@ -121,7 +137,14 @@ function SignUpForm() {
                             required
                         />
 
-                        <button type="submit" className="btn primary-btn">
+                        <button
+                            type="submit"
+                            className={
+                                "btn " +
+                                (diasble ? "disabled-button" : "primary-btn")
+                            }
+                            disabled={diasble}
+                        >
                             Register
                         </button>
                     </form>
@@ -151,7 +174,14 @@ function SignUpForm() {
                             required
                         />
 
-                        <button type="submit" className="btn primary-btn">
+                        <button
+                            type="submit"
+                            className={
+                                "btn " +
+                                (diasble ? "disabled-button" : "primary-btn")
+                            }
+                            disabled={diasble}
+                        >
                             Verify
                         </button>
                     </form>

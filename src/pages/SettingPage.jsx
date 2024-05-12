@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuthentication from "../hooks/useAuthentication";
 import { FaArrowLeft } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Setting() {
     const [name, setName] = useState("");
@@ -54,14 +56,13 @@ function Setting() {
                 data: { name, phone },
             })
                 .then((res) => {
-                    alert("Phone and Name Changes Successfully")
+                    toast("Phone Number and Name Changed Successfully");
                 })
                 .catch((err) => {
-                    console.log(err);
+                    toast("Error Occured While Making the Changes")
                 });
         }
     };
-
 
     const navigateToRegistration = () => {
         navigate("/");
@@ -69,6 +70,7 @@ function Setting() {
 
     return (
         <div className="setting-page">
+            <ToastContainer />
             <h1>
                 <div className="login-page">
                     <button
@@ -85,7 +87,8 @@ function Setting() {
                     onClick={() => {
                         setToken(false);
                         localStorage.clear();
-                        navigate("/forgetpassword")}}
+                        navigate("/forgetpassword");
+                    }}
                     anchor-button
                     className="anchor-button setting-anchor-button"
                 >
@@ -109,7 +112,10 @@ function Setting() {
                         onChange={(e) => setPhone(e.target.value)}
                         required
                     />
-                    <button type="submit" className="btn primary-btn setting-button">
+                    <button
+                        type="submit"
+                        className="btn primary-btn setting-button"
+                    >
                         Update
                     </button>
                 </form>

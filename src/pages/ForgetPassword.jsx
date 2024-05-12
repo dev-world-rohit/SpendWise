@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuthentication from "../hooks/useAuthentication";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ForgetPassword() {
+    const [diasble, setDisable] = useState(false);
     const [activate, setActivate] = useState(true);
     const [otp, setOtp] = useState("");
     const [email, setEmail] = useState("");
@@ -19,9 +22,9 @@ function ForgetPassword() {
         }
     }, [token, navigate]);
 
-    const handleRegistration = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
-
+        setDisable(true);
         if (!email) {
             alert("Please fill all fields");
         } else {
@@ -34,11 +37,18 @@ function ForgetPassword() {
                 data: { email, otp, password },
             })
                 .then((res) => {
-                    setToken(res.data.access_token);
-                    saveToken(res.data.access_token);
+                    if (res.data.error) {
+                        toast(res.data.error);
+                        setDisable(false);
+                    } else {
+                        setToken(res.data.access_token);
+                        saveToken(res.data.access_token);
+                        toast("Password Changed Successfully");
+                    }
                 })
                 .catch((err) => {
-                    console.log(err);
+                    toast("Error Occured");
+                    setDisable(false);
                 });
         }
     };
@@ -46,6 +56,7 @@ function ForgetPassword() {
     const handleOtp = (e) => {
         e.preventDefault();
 
+        setDisable(true);
         axios({
             url: url + "/forget_password_otp",
             method: "POST",
@@ -56,18 +67,23 @@ function ForgetPassword() {
         })
             .then((res) => {
                 if (res.data.error) {
-                    alert(res.data.error);
+                    toast(res.data.error);
+                    setDisable(false);
                 } else {
+                    toast("Otp Sent Successfully");
                     setActivate(false);
+                    setDisable(false);
                 }
             })
             .catch((err) => {
-                console.log(err);
+                toast("Error Occured while Sending the OTP.");
+                setDisable(false);
             });
     };
 
     return (
         <div className="registration-container">
+            <ToastContainer />
             {activate && (
                 <div className="registration-form-div half-size-div">
                     <form onSubmit={handleOtp} className="registration-form">
@@ -79,7 +95,14 @@ function ForgetPassword() {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        <button type="submit" className="btn primary-btn">
+                        <button
+                            type="submit"
+                            className={
+                                "btn " +
+                                (diasble ? "disabled-button" : "primary-btn")
+                            }
+                            disabled={diasble}
+                        >
                             Register
                         </button>
                     </form>
@@ -87,7 +110,7 @@ function ForgetPassword() {
                         Already Registered?
                         <button
                             onClick={() => {
-                                navigate('/login')
+                                navigate("/login");
                             }}
                             className="anchor-button"
                         >
@@ -98,10 +121,7 @@ function ForgetPassword() {
             )}
             {!activate && (
                 <div className="registration-otp-div">
-                    <form
-                        onSubmit={handleRegistration}
-                        className="registration-form"
-                    >
+                    <form onSubmit={handleLogin} className="registration-form">
                         <h1 className="main-heading">OTP Verification</h1>
                         <input
                             type="text"
@@ -125,7 +145,13 @@ function ForgetPassword() {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                         />
-                        <button type="submit" className="btn primary-btn">
+                        <button
+                            type="submit"
+                            className={
+                                "btn " +
+                                (diasble ? "disabled-button" : "primary-btn")
+                            }
+                        >
                             Confirm
                         </button>
                     </form>
