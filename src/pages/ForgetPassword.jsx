@@ -83,6 +83,17 @@ function ForgetPassword() {
                             Register
                         </button>
                     </form>
+                    <div className="login-page">
+                        Already Registered?
+                        <button
+                            onClick={() => {
+                                navigate('/login')
+                            }}
+                            className="anchor-button"
+                        >
+                            Login
+                        </button>
+                    </div>
                 </div>
             )}
             {!activate && (

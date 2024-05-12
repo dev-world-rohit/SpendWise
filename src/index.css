@@ -562,3 +562,33 @@ textarea {
 .setting-page {
     margin: 5rem 10vw;
 }
+
+.setting-arrow-icon {
+    color: #000000;
+    font-size: 1.2rem;
+    margin-right: 0.3rem;
+    transition: .25s ease-in-out;
+}
+
+.setting-arrow-icon:hover {
+    transform: translateX(-10px);
+}
+
+.setting-options {
+    margin-right: 1rem;
+    width: 40vw;
+}
+
+.setting-anchor-button {
+    margin: 1rem 0;
+}
+
+.setting-button {
+    width: 10vw;
+}
+
+.setting-form input {
+    border-radius: 0;
+    border: 0;
+    border-bottom: 1px solid #c9c9c9;
+}
