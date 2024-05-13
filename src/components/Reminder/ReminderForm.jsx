@@ -73,6 +73,7 @@ function ReminderForm({ data, handleData }) {
                         name="expenseName"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="expense-form-field">
@@ -82,6 +83,7 @@ function ReminderForm({ data, handleData }) {
                         name="price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="expense-form-field">
@@ -91,6 +93,7 @@ function ReminderForm({ data, handleData }) {
                         options={repeatTime}
                         placeholder="Repeatation Type"
                         className="select-tag"
+                        required
                     />
                 </div>
 

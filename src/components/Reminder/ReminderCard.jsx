@@ -35,10 +35,10 @@ function ReminderCard({
                 },
                 data: { id: id },
             });
-            console.log("Reminder deleted successfully");
+            console.log("Reminder Deleted Successfully");
             handleReminderDelete(id);
         } catch (error) {
-            console.error("Error deleting reminder:", error);
+            console.log("Error occured while Deleting the Reminder.");
         }
     };
 

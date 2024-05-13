@@ -9,6 +9,7 @@ import ReminderPage from "./pages/ReminderPage";
 import SettingPage from "./pages/SettingPage";
 import ForgetPassword from "./pages/ForgetPassword";
 import PremiumPage from "./pages/PremiumPage";
+import TalkWIthAI from "./pages/TalkWithAI";
 
 function App() {
     const { token, getToken } = useAuthentication();
@@ -42,6 +43,7 @@ function App() {
                     <Route path="/reminder" element={<ReminderPage />} />
                     <Route path="/setting" element={<SettingPage />} />
                     <Route path="/premium" element={<PremiumPage />} />
+                    <Route path="/talkai" element={<TalkWIthAI />} />
                 </Routes>
             </BrowserRouter>
         </div>

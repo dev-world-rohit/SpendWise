@@ -41,6 +41,12 @@ function NavBar() {
                 >
                     Premium
                 </button>
+                <button
+                    className="nav-component main-nav-component"
+                    onClick={() => navigate("/talkai")}
+                >
+                    Talk AI
+                </button>
             </div>
             <div className="sub-nav-container">
                 <button
