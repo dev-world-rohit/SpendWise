@@ -444,6 +444,13 @@ textarea {
     cursor: no-drop;
 }
 
+.setting-anchor-button-danger {
+    color: #ff0000;
+    border: none;
+    background: transparent;
+    margin: 2rem 0;
+}
+
 .add-expense-button:hover {
     transform: scale(1.05);
 }

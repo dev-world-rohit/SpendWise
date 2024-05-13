@@ -19,6 +19,30 @@ function Setting() {
     //     }
     // }, [token, navigate]);
 
+    const handleDelete = async (e) => {
+        await axios({
+            url: url + "/delete_account",
+            method: "GET",
+            headers: {
+                authorization: "Bearer " + token,
+            },
+            data: {},
+        })
+            .then((res) => {
+                if (res.data.error) {
+                    toast(res.data.erro);
+                } else {
+                    toast("Account Delete Successful.");
+                    setToken(false);
+                    localStorage.clear();
+                    navigateToRegistration();
+                }
+            })
+            .catch((err) => {
+                toast(err);
+            });
+    };
+
     useEffect(() => {
         const handleSubmit = async (e) => {
             await axios({
@@ -59,7 +83,7 @@ function Setting() {
                     toast("Phone Number and Name Changed Successfully");
                 })
                 .catch((err) => {
-                    toast("Error Occured While Making the Changes")
+                    toast("Error Occured While Making the Changes");
                 });
         }
     };
@@ -120,6 +144,15 @@ function Setting() {
                     </button>
                 </form>
             </div>
+            <button
+                onClick={() => {
+                    handleDelete()
+                }}
+                anchor-button
+                className="setting-anchor-button-danger"
+            >
+                Delete Account
+            </button>
         </div>
     );
 }
