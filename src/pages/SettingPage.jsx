@@ -5,8 +5,10 @@ import useAuthentication from "../hooks/useAuthentication";
 import { FaArrowLeft } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Modal from "../components/Modal";
 
 function Setting() {
+    const [showModal, setShowModal] = useState("");
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
 
@@ -92,6 +94,10 @@ function Setting() {
         navigate("/");
     };
 
+    const handleCloseModal = () => {
+        setShowModal(false);
+    }
+
     return (
         <div className="setting-page">
             <ToastContainer />
@@ -146,13 +152,16 @@ function Setting() {
             </div>
             <button
                 onClick={() => {
-                    handleDelete()
+                    setShowModal(true);
                 }}
                 anchor-button
                 className="setting-anchor-button-danger"
             >
                 Delete Account
             </button>
+            {showModal && (
+                <Modal onClose={handleCloseModal} onDelete={handleDelete} />
+            )}
         </div>
     );
 }
