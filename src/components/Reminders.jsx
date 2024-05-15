@@ -22,7 +22,8 @@ function Reminders() {
                 data: {},
             })
                 .then((res) => {
-                    setReminders(res.data);
+                    console.log(res.data)
+                    setReminders(res.data.reminders);
                 })
                 .catch((err) => {
                     console.error("Error adding expense:", err);
@@ -42,11 +43,12 @@ function Reminders() {
                 <div className="sub-container-reminder">
                     {showReminderFriend ? (
                         <ReminderForm
-                            data={reminders}
                             handleData={setReminders}
                         />
                     ) : (
-                        <ReminderFriendForm />
+                        <ReminderFriendForm
+                            handleData={setReminders}
+                        />
                     )}
                 </div>
             </div>

@@ -589,7 +589,7 @@ textarea {
 
 .reminder-card-icon:hover {
     transform: scale(1.1);
-    color: red;
+    color: rgb(255, 94, 94);
 }
 
 .setting-page {

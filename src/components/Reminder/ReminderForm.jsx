@@ -15,7 +15,7 @@ const repeatTime = [
     { value: "Every Year", label: "Every Year" },
 ];
 
-function ReminderForm({ data, handleData }) {
+function ReminderForm({ handleData }) {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
@@ -50,8 +50,14 @@ function ReminderForm({ data, handleData }) {
             },
         })
             .then((res) => {
+                console.log(res.data);
+                if (res.data.error){
+                    toast(res.data.error);
+                }
+                else {
                 toast("Reminder Added Successfully");
-                handleData(res.data);
+                handleData(res.data.reminders);
+                }
             })
             .catch((err) => {
                 toast("Error Adding Reminder");
@@ -65,7 +71,7 @@ function ReminderForm({ data, handleData }) {
                 className="expense-add-form reminder-form"
                 onSubmit={handleSubmit}
             >
-                <h2 className="reminder-form-heading">Remaind Yourself</h2>
+                <h2 className="reminder-form-heading">Remind Yourself</h2>
                 <div className="expense-form-field">
                     <input
                         type="text"

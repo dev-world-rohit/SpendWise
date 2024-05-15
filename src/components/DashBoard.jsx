@@ -5,6 +5,8 @@ import DashBoardReminder from "./dashboard/DashBoardReminder";
 import ExpenseAddForm from "./dashboard/ExpenseAddForm";
 import useAuthentication from "../hooks/useAuthentication";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function formatDate(date) {
     const formattedDate = new Date(date);
@@ -110,6 +112,31 @@ function DashBoard() {
         async function handleName() {
             try {
                 const response = await axios({
+                    url: url + "/get_failed_emails",
+                    method: "GET",
+                    headers: {
+                        authorization: "Bearer " + token,
+                    },
+                });
+                if (response.data.error_logs) {
+                    toast(
+                        "Failed to send reminder messages to " +
+                            response.data.error_logs
+                    );
+                } else {
+                }
+            } catch (err) {
+                console.error("Error fetching name:", err);
+            }
+        }
+
+        handleName();
+    }, [token, url]);
+
+    useEffect(() => {
+        async function handleName() {
+            try {
+                const response = await axios({
                     url: url + "/name",
                     method: "GET",
                     headers: {
@@ -145,7 +172,6 @@ function DashBoard() {
         handleName();
     }, [token, url]);
 
-
     const tagBasedData = {
         housing,
         setHousing,
@@ -173,7 +199,7 @@ function DashBoard() {
         setLend,
         miscellaneousComparison,
         miscellaneous,
-        setMiscellaneous
+        setMiscellaneous,
     };
 
     return (
@@ -182,14 +208,21 @@ function DashBoard() {
             <div className="main-dashboard-date">{currentDate}</div>
             <div className="main-dashboard-display-div">
                 <div className="sub-dashboard">
-                    <TotalOverview monthly={monthly} yearly={yearly}/>
+                    <TotalOverview monthly={monthly} yearly={yearly} />
                     <TagBasedExpense {...tagBasedData} />
                 </div>
                 <div className="sub-dashboard">
                     <DashBoardReminder />
-                    <ExpenseAddForm monthly={monthly} setMonthly={setMonthly} yearly={yearly} setYearly={setYearly} {...tagBasedData} />
+                    <ExpenseAddForm
+                        monthly={monthly}
+                        setMonthly={setMonthly}
+                        yearly={yearly}
+                        setYearly={setYearly}
+                        {...tagBasedData}
+                    />
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

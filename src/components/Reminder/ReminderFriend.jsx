@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-// import axios from "axios";
-// import useAuthentication from "../../hooks/useAuthentication";
+import axios from "axios";
+import useAuthentication from "../../hooks/useAuthentication";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
-function ReminderFriendForm({ data, handleData }) {
+function ReminderFriendForm({ handleData }) {
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
-    const [email, setEmail] = useState("");
+    const [personEmail, setPersonEmail] = useState("");
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    // const { token, url } = useAuthentication();
+    const { token, url } = useAuthentication();
 
 
     const handleDateChange = (date) => {
@@ -22,27 +24,32 @@ function ReminderFriendForm({ data, handleData }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // axios({
-        //     url: url + "/reminders",
-        //     method: "POST",
-        //     headers: {
-        //         authorization: "Bearer " + token,
-        //     },
-        //     data: {
-        //         reminder_name: name,
-        //         price: price,
-        //         repeat: selectedOption.value,
-        //         date: selectedDate.toISOString().slice(0, 10),
-        //         description: description,
-        //     },
-        // })
-        //     .then((res) => {
-        //         console.log("Expense added successfully:", res.data);
-        //         handleData(res.data);
-        //     })
-        //     .catch((err) => {
-        //         console.error("Error adding expense:", err);
-        //     });
+        axios({
+            url: url + "/reminders_friend",
+            method: "POST",
+            headers: {
+                authorization: "Bearer " + token,
+            },
+            data: {
+                reminder_name: name,
+                price: price,
+                person_email: personEmail,
+                date: selectedDate.toISOString().slice(0, 10),
+                description: description,
+            },
+        })
+            .then((res) => {
+                console.log(res.data);
+                if (res.data.error) {
+                    toast(res.data.error);
+                } else {
+                    toast("Reminder Added Successfully");
+                    handleData(res.data.reminders);
+                }
+            })
+            .catch((err) => {
+                toast("Error Adding Reminder");
+            });
     };
 
     return (
@@ -75,8 +82,8 @@ function ReminderFriendForm({ data, handleData }) {
                         type="email"
                         placeholder="Email"
                         name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={personEmail}
+                        onChange={(e) => setPersonEmail(e.target.value)}
                     />
                 </div>
 
@@ -105,6 +112,7 @@ function ReminderFriendForm({ data, handleData }) {
                     Add Reminder
                 </button>
             </form>
+            <ToastContainer />
         </div>
     );
 }
