@@ -38,12 +38,56 @@ function App() {
                             )
                         }
                     />
-                    {/* <Route path="/" element={<DashBoardPage />} /> */}
-                    <Route path="/analysis" element={<AnalysisPage />} />
-                    <Route path="/reminder" element={<ReminderPage />} />
-                    <Route path="/setting" element={<SettingPage />} />
-                    <Route path="/premium" element={<PremiumPage />} />
-                    <Route path="/talkai" element={<TalkWIthAI />} />
+                    <Route
+                        path="/analysis"
+                        element={
+                            token ? (
+                                <AnalysisPage />
+                            ) : (
+                                <Navigate to="/register" />
+                            )
+                        }
+                    />
+                    <Route
+                        path="/reminder"
+                        element={
+                            token ? (
+                                <ReminderPage />
+                            ) : (
+                                <Navigate to="/register" />
+                            )
+                        }
+                    />
+                    <Route
+                        path="/setting"
+                        element={
+                            token ? (
+                                <SettingPage />
+                            ) : (
+                                <Navigate to="/register" />
+                            )
+                        }
+                    />
+                    <Route
+                        path="/premium"
+                        element={
+                            token ? (
+                                <PremiumPage />
+                            ) : (
+                                <Navigate to="/register" />
+                            )
+                        }
+                    />
+                    <Route
+                        path="/talkai"
+                        element={
+                            token ? (
+                                <TalkWIthAI />
+                            ) : (
+                                <Navigate to="/register" />
+                            )
+                        }
+                    />
                 </Routes>
             </BrowserRouter>
         </div>
