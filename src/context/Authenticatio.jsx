@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-    const url = "http://127.0.0.1:5000";
+    const url = "https://following-matty-anaition-af103e26.koyeb.app/" // "http://127.0.0.1:5000";
 
     function getToken() {
         const userToken = localStorage.getItem("token");
