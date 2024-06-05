@@ -21,7 +21,7 @@ function DateSelector({ getData }) {
         return `${year}-${month}-${day}`;
     };
 
-    const handleGetData =  useCallback(() => {
+    const handleGetData = useCallback(() => {
         if (selectEndDate < selectStartDate) {
             toast("End Date must be bigger than start date");
         } else {
@@ -29,7 +29,7 @@ function DateSelector({ getData }) {
             const endDateFormatted = formatDate(selectEndDate);
             getData(startDateFormatted, endDateFormatted);
         }
-    });
+    }, [selectStartDate, selectEndDate, formatDate, getData]);
 
     useEffect(() => {
         handleGetData();
