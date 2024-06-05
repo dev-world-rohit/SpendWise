@@ -91,9 +91,10 @@ body {
 }
 
 .main-dashboard-container {
-    margin: 2vh 2vw;
+    margin: 0 2vw;
     margin-left: 17vw;
     width: -webkit-fill-available;
+    height: 100vh;
 }
 
 .main-dashboard-hello {
@@ -673,4 +674,73 @@ textarea {
 
 .show-overflow {
     overflow: hidden;
+}
+
+/* All expenses */
+.expenses-data-sub-container {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.expenses-half {
+    width: 100%;
+}
+
+.get-expenses-form-field {
+    width: -webkit-fill-available;
+    background: var(--dashboard-card-color);
+    display: flex;
+    padding: 1rem;
+    justify-content: center;
+    margin: 0.5rem 0;
+}
+
+.date-picker {
+    margin: 0;
+}
+
+.get-expenses-button {
+    width: 7rem;
+    border-radius: 0.4rem;
+    height: 3.5rem;
+    margin-left: 1rem;
+}
+
+.expenses-data-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.expense-card-container {
+    gap: 1rem;
+    background: var(--dashboard-card-color);
+    padding: 1rem;
+    border-radius: 0.4rem;
+    margin-bottom: 0.3rem;
+    border: 1px solid #dedede;
+    transition: .5s ease;
+    height: fit-content;
+}
+
+.expense-card-container:hover {
+    transform: scale(0.98);
+}
+.expense-card-name {
+    color: var(--price-text-color);
+    text-transform: capitalize;
+    font-size: 1.3rem;
+}
+
+.expense-card-date {
+    margin-top: 1rem;
+}
+
+.expense-card-price {
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+
+.expenses-card-menu {
+    display: flex;
+        justify-content: space-between;
 }

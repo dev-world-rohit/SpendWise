@@ -1,11 +1,11 @@
 import NavBar from "../components/NavBar";
-import Premium from "../components/Premium";
+import AllExpenses from "../components/AllExpenses";
 
 function DashBoardPage() {
     return (
         <div className="main-division">
             <NavBar />
-            <Premium />
+            <AllExpenses />
         </div>
     );
 }

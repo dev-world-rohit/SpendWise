@@ -37,9 +37,9 @@ function NavBar() {
                 </button>
                 <button
                     className="nav-component main-nav-component"
-                    onClick={() => navigate("/premium")}
+                    onClick={() => navigate("/expenses")}
                 >
-                    Premium
+                    Expenses
                 </button>
                 <button
                     className="nav-component main-nav-component"

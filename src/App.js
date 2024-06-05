@@ -8,7 +8,7 @@ import AnalysisPage from "./pages/AnalysisPage";
 import ReminderPage from "./pages/ReminderPage";
 import SettingPage from "./pages/SettingPage";
 import ForgetPassword from "./pages/ForgetPassword";
-import PremiumPage from "./pages/PremiumPage";
+import AllExpensesPage from "./pages/AllExpensesPage";
 import TalkWIthAI from "./pages/TalkWithAI";
 
 function App() {
@@ -69,10 +69,10 @@ function App() {
                         }
                     />
                     <Route
-                        path="/premium"
+                        path="/expenses"
                         element={
                             token ? (
-                                <PremiumPage />
+                                <AllExpensesPage />
                             ) : (
                                 <Navigate to="/register" />
                             )
@@ -81,11 +81,7 @@ function App() {
                     <Route
                         path="/talkai"
                         element={
-                            token ? (
-                                <TalkWIthAI />
-                            ) : (
-                                <Navigate to="/register" />
-                            )
+                            token ? <TalkWIthAI /> : <Navigate to="/register" />
                         }
                     />
                 </Routes>

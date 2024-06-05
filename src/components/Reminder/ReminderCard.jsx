@@ -34,7 +34,7 @@ function ReminderCard({
                     Authorization: "Bearer " + token,
                 },
                 data: { id: id },
-            });
+            })
             console.log("Reminder Deleted Successfully");
             handleReminderDelete(id);
         } catch (error) {
