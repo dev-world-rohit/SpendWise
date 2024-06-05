@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import DatePicker from "react-datepicker";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ExpenseCard from "./ExpenseCard";
 
 function DateSelector({ getData }) {
     const currentDate = new Date();
@@ -11,7 +10,6 @@ function DateSelector({ getData }) {
         currentDate.getMonth(),
         1
     );
-    
 
     const [selectStartDate, setSelectStartDate] = useState(firstDayOfMonth);
     const [selectEndDate, setSelectEndDate] = useState(currentDate);
@@ -23,7 +21,7 @@ function DateSelector({ getData }) {
         return `${year}-${month}-${day}`;
     };
 
-    const handleGetData = () => {
+    const handleGetData =  useCallback(() => {
         if (selectEndDate < selectStartDate) {
             toast("End Date must be bigger than start date");
         } else {
@@ -31,11 +29,11 @@ function DateSelector({ getData }) {
             const endDateFormatted = formatDate(selectEndDate);
             getData(startDateFormatted, endDateFormatted);
         }
-    };
+    });
 
-    useEffect((() => {
+    useEffect(() => {
         handleGetData();
-    }), [])
+    }, [handleGetData]);
 
     return (
         <div>
