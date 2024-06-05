@@ -14,14 +14,14 @@ function DateSelector({ getData }) {
     const [selectStartDate, setSelectStartDate] = useState(firstDayOfMonth);
     const [selectEndDate, setSelectEndDate] = useState(currentDate);
 
-    const formatDate = (date) => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-    };
-
     const handleGetData = useCallback(() => {
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`;
+        };
+
         if (selectEndDate < selectStartDate) {
             toast("End Date must be bigger than start date");
         } else {
@@ -29,7 +29,7 @@ function DateSelector({ getData }) {
             const endDateFormatted = formatDate(selectEndDate);
             getData(startDateFormatted, endDateFormatted);
         }
-    }, [selectStartDate, selectEndDate, formatDate, getData]);
+    }, [selectStartDate, selectEndDate, getData]);
 
     useEffect(() => {
         handleGetData();
