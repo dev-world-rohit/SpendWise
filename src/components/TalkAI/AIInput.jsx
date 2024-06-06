@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { IoSend } from "react-icons/io5";
 
 function AIInput() {
     const [inputValue, setInputValue] = useState("");
     const [isListening, setIsListening] = useState(false);
-    const recognition = new (window.SpeechRecognition ||
-        window.webkitSpeechRecognition)();
+
+    const recognition = useMemo(() => {
+        const SpeechRecognition =
+            window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recog = new SpeechRecognition();
+        recog.continuous = true;
+        recog.interimResults = true;
+        return recog;
+    }, []);
 
     useEffect(() => {
-        recognition.continuous = true;
-        recognition.interimResults = true;
-
         recognition.onresult = (event) => {
             const transcript = Array.from(event.results)
                 .map((result) => result[0])
@@ -43,18 +48,20 @@ function AIInput() {
     };
 
     return (
-        <div className="talkai-container">
-            <div className="input-button-container">
-                <textarea
-                    type="text"
-                    name="aiinput"
-                    id="ai"
-                    placeholder="type your conversation here..."
-                    className="talk-ai-input"
-                    value={inputValue}
-                    onChange={handleInputChange}
-                />
-                <button className="arrow-button">→</button>
+        <div className="talkai-input-container">
+            <textarea
+                type="text"
+                name="aiinput"
+                id="ai"
+                placeholder="type your conversation here..."
+                className="talk-ai-input"
+                value={inputValue}
+                onChange={handleInputChange}
+            />
+            <div className="input-talkai-buttons">
+                <button className="arrow-button">
+                    <IoSend />
+                </button>
                 <button
                     className={`microphone-button ${
                         isListening ? "listening" : ""

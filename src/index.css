@@ -753,23 +753,51 @@ textarea {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    width: 80%;
 }
 
+.talkai-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+
 .talk-ai-input {
-    width: 80%;
     border-radius: 3rem;
     padding: 1rem 2rem;
-    margin-bottom: 3rem;
     box-shadow: 0px 10px 19px 0px rgba(0, 0, 0, 0.1);
+    display: block;
+    width: 90%;
+    max-height: 1.5rem;
+    outline: none;
+    border-radius: .25rem;
+    font-size: 1rem;
+    max-height: 1.3rem;
+    margin: 0;
+}
+
+.input-talkai-buttons {
+    gap: 0;
+    display: flex;
+    margin-right: 1rem;
+    margin-left: 1rem;
 }
 
 .arrow-button {
-    position: absolute;
-    z-index: 3;
-    bottom: 8%;
-    right: 10%;
     font-size: 2rem;
-    color: #000000;
+    color: #ffffff;
+    background: var(--primary-color);
+    border: none;
+    box-shadow: 0px 10px 19px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 0.2rem;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
 }
 
 .conversation-container {
@@ -780,7 +808,7 @@ textarea {
 
 .converation-card {
     padding: 0.3rem 1rem;
-    border-radius: 1rem;
+    border-radius: 0 2rem 2rem 1rem;
     margin: 0.4rem 0;
     width: fit-content;
     box-shadow: 0px 10px 19px 0px rgba(0, 0, 0, 0.1);
@@ -805,7 +833,8 @@ textarea {
 }
 
 .microphone-button {
-    background-color: #28a745;
+    box-shadow: 0px 10px 19px 0px rgba(0, 0, 0, 0.1);
+    background: #28a745;
     color: white;
     border: none;
     padding: 1rem;
@@ -815,5 +844,5 @@ textarea {
 }
 
 .microphone-button.listening {
-    background-color: #dc3545;
+    background: #dc3545;
 }
