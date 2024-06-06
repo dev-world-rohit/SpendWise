@@ -709,6 +709,7 @@ textarea {
 .expenses-data-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    height: fit-content;
 }
 
 .expense-card-container {
